@@ -32,6 +32,11 @@ authorInput.setAttribute("id","authorInput");
 authorInput.setAttribute("type", "search");
 authorInput.placeholder = "Exemple : George Orwell";
 
+// Creation of div container for search list
+const searchList = document.createElement("div");
+searchList.setAttribute("id","searchList");
+content.appendChild(searchList);
+
 
 // Event handler : CLICK on addButton => addButton is replaced by searchButton and cancelButton
 addButton.addEventListener ("click", function(){
@@ -47,6 +52,7 @@ addButton.addEventListener ("click", function(){
 // Event handler : CLICK on cancelButton => Clear <hr> and regeneration of addButton
 cancelButton.addEventListener ("click", function(){
     document.querySelector("hr").innerHTML = "";
+    document.getElementById("searchList").innerHTML = "";
     document.getElementsByTagName("h2")[1].innerHTML = "Ma poch'liste ";
     hr.appendChild(addButton);
 
@@ -69,16 +75,20 @@ searchButton.addEventListener("click", async function() {
             alert("Aucun livre n'a été trouvé");
 
         } else {
+            // Replace title by "Ma Recherche" and clear previous search
             document.getElementsByTagName("h2")[1].innerHTML = "Ma Recherche";
-            document.getElementsByTagName("section").innerHTML = "";
-            bookData.items.forEach(bookData => {
-                var titre = bookData.volumeInfo.title;
-                var id = bookData.id;
-                var auteur = bookData.volumeInfo.authors;
-                var description = bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante";
-                var image = bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg"; 
+            document.getElementById("searchList").innerHTML = "";
 
+            // Loop to get each books' elements
+            bookData.items.forEach(bookData => {
+                var title = bookData.volumeInfo.title;
+                var id = bookData.id;
+                var author = bookData.volumeInfo.authors;
+                var description = bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante";
+                var image = bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg";
                 const bookBox = document.createElement("section");
+
+                // Creation of book container
                 bookBox.innerHTML =
                 `<div id = "imgBox">
                 <div class="image">
@@ -86,21 +96,22 @@ searchButton.addEventListener("click", async function() {
                 </div>
                 </div>
                 <div id = "txtBox">
-                <i class="fa-regular fa-bookmark fa-4x"></i>
-                <h3 class="titre">${titre}</h3>
+                <div id = "bookmark"><i class="fa-regular fa-bookmark fa-4x" onclick = addToFavorite('${id}')></i></div>
+                <h3 class="titre">${title}</h3>
                 <div class="id">Id : ${id}</div>
-                <div class="auteur">Auteur(s) : ${auteur}</div>
+                <div class="auteur">Auteur(s) : ${author}</div>
                 <div class="description">${description}</div>
-                
                 </div>`;
                                     
-                content.appendChild(bookBox);  
+                searchList.appendChild(bookBox);  
             });
 
         }
-    
                 
     }
 })
+
+
+
 
   
