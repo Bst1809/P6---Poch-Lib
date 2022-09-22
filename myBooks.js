@@ -61,10 +61,10 @@ cancelButton.addEventListener ("click", function(){
 // Event handler : CLICK on searchButton
 searchButton.addEventListener("click", async function() {
 
-    var searchTitle = document.getElementById("titleInput").value; 
-    var searchAuthor = document.getElementById("authorInput").value;
+    let searchTitle = document.getElementById("titleInput").value; 
+    let searchAuthor = document.getElementById("authorInput").value;
 
-    if ((searchTitle || searchAuthor) === "" || (searchTitle || searchAuthor) === null) {
+    if ((searchTitle || searchAuthor) === "" && (searchTitle || searchAuthor) === null) {
         alert("Merci de remplir les champs titre ET auteur-e");
     } else {   
 
@@ -81,35 +81,75 @@ searchButton.addEventListener("click", async function() {
 
             // Loop to get each books' elements
             bookData.items.forEach(bookData => {
-                var title = bookData.volumeInfo.title;
-                var id = bookData.id;
-                var author = bookData.volumeInfo.authors;
-                var description = bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante";
-                var image = bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg";
-                const bookBox = document.createElement("section");
+                //Creation of book object
+                let book = {
+                    title : bookData.volumeInfo.title,
+                    id : bookData.id,
+                    author : bookData.volumeInfo.authors,
+                    description : bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante",
+                    img : bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg",
+                  }
 
-                // Creation of book container
+                // Creation of book card
+                const bookBox = document.createElement("section");
+                bookBox.setAttribute("id",book.id)
                 bookBox.innerHTML =
                 `<div id = "imgBox">
-                <div class="image">
-                <img src="${image}"/>
+                <div id="image"> <img src="${book.img}"/> </div>
                 </div>
-                </div>
-                <div id = "txtBox">
-                <div id = "bookmark"><i class="fa-regular fa-bookmark fa-4x" onclick = addToFavorite('${id}')></i></div>
-                <h3 class="titre">${title}</h3>
-                <div class="id">Id : ${id}</div>
-                <div class="auteur">Auteur(s) : ${author}</div>
-                <div class="description">${description}</div>
+                <div id = "txtBox"> 
+                <h3>${book.title}</h3>
+                <div id="id">Id : ${book.id}</div>
+                <div id="author">Auteur-e : ${book.author}</div>
+                <div id="description">${book.description}</div>
                 </div>`;
+
+                // Creation of Bookmark 
+                const bookmark = document.createElement("i");
+                bookmark.setAttribute("class", "fa-regular fa-bookmark fa-4x");
+                bookmark.setAttribute("id", "bookmark");
+                bookBox.appendChild(bookmark);
+
+                // Event handler : CLICK on bookmark to add to favorite list (within search button handler)
+                bookmark.addEventListener ("click", () => {
+                    let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
+                    if (favoriteBook){
+                        favoriteBook.push(book);
+                        alert(`Added ${book.title} to your favorite list!`);
+                        sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+                        console.log(favoriteBook);
+                    }else{
+                    favoriteBook = [];
+                    favoriteBook.push(book);
+                    alert(`${book.title} est maintenant dans votre poch'list!`);
+                    sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+                    console.log(favoriteBook);
+                    }
+                })   
                                     
-                searchList.appendChild(bookBox);  
+                searchList.appendChild(bookBox);
+
+                
+                
+                
+                
+  
+                
             });
+            
+            
+            
+
 
         }
+        
                 
     }
 })
+
+
+
+
 
 
 
