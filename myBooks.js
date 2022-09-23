@@ -37,36 +37,38 @@ const favoriteList = document.createElement("div");
 favoriteList.setAttribute("id","favoriteList");
 content.appendChild(favoriteList);
 
-// Creation of div container for search list
+// Creation of div container for favorite list
 const searchList = document.createElement("div");
 searchList.setAttribute("id","searchList");
 content.appendChild(searchList);
 
+
+
 // Event handler : getting favorite books when loading page
 window.onload = () => {
 let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-for (let i = 0; i < favoriteBook.length; i++){
-    const favoriteBookCard = document.createElement("section");
-    favoriteBookCard.innerHTML =
-                `<div id = "imgBox">
-                <div id="image"> <img src="${favoriteBook[i].img}"/> </div>
-                </div>
-                <div id = "txtBox"> 
-                <h3>${favoriteBook[i].title}</h3>
-                <div id="id">Id : ${favoriteBook[i].id}</div>
-                <div id="author">Auteur-e : ${favoriteBook[i].author}</div>
-                <div id="description">${favoriteBook[i].description}</div>
-                </div>`;
+    if (!favoriteBook){
+    }else{
+        for (let i = 0; i < favoriteBook.length; i++){
+            const favoriteBookCard = document.createElement("section");
+            favoriteBookCard.innerHTML =
+                        `<div id = "imgBox">
+                        <div id="image"> <img src="${favoriteBook[i].img}"/> </div>
+                        </div>
+                        <div id = "txtBox"> 
+                        <h3>${favoriteBook[i].title}</h3>
+                        <div id="id">Id : ${favoriteBook[i].id}</div>
+                        <div id="author">Auteur-e : ${favoriteBook[i].author}</div>
+                        <div id="description">${favoriteBook[i].description}</div>
+                        </div>`;
 
 
 
-    favoriteList.appendChild(favoriteBookCard);
+            favoriteList.appendChild(favoriteBookCard);
+        }
+    }
 
-}
-
-
-
-}
+ }
 
 // Event handler : CLICK on addButton => addButton is replaced by searchButton and cancelButton
 addButton.addEventListener ("click", function(){
@@ -106,8 +108,10 @@ searchButton.addEventListener("click", async function() {
             alert("Aucun livre n'a été trouvé");
 
         } else {
-            
-            // Replace title by "Ma Recherche" and clear previous search
+            if (document.getElementById("favoriteList")){
+                content.replaceChild(searchList,favoriteList);
+            }else{} 
+            // Replace title "Ma Poch'list" with "Ma Recherche" and clear previous search
             document.getElementsByTagName("h2")[1].innerHTML = "Ma Recherche";
             document.getElementById("searchList").innerHTML = "";
 
