@@ -92,7 +92,6 @@ searchButton.addEventListener("click", async function() {
 
                 // Creation of book card
                 const bookBox = document.createElement("section");
-                bookBox.setAttribute("id",book.id)
                 bookBox.innerHTML =
                 `<div id = "imgBox">
                 <div id="image"> <img src="${book.img}"/> </div>
@@ -113,18 +112,24 @@ searchButton.addEventListener("click", async function() {
                 // Event handler : CLICK on bookmark to add to favorite list (within search button handler)
                 bookmark.addEventListener ("click", () => {
                     let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                    if (favoriteBook){
+                    if (favoriteBook == null){
+                        favoriteBook = [];
                         favoriteBook.push(book);
-                        alert(`Added ${book.title} to your favorite list!`);
+                        sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+                    }else{
+                    let bookIdCheck = favoriteBook.find(e => e.id==book.id);
+                    if (bookIdCheck){
+                        alert('ce livre existe déjà dans votre pochlist');
+                    }else{
+                        favoriteBook.push(book);
                         sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
                         console.log(favoriteBook);
-                    }else{
-                    favoriteBook = [];
-                    favoriteBook.push(book);
-                    alert(`${book.title} est maintenant dans votre poch'list!`);
-                    sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
-                    console.log(favoriteBook);
                     }
+                }
+                   
+                  
+                    
+                    
                 })   
                                     
                 searchList.appendChild(bookBox);
