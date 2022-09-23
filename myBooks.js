@@ -32,11 +32,41 @@ authorInput.setAttribute("id","authorInput");
 authorInput.setAttribute("type", "search");
 authorInput.placeholder = "Exemple : George Orwell";
 
+// Creation of div container for favorite list
+const favoriteList = document.createElement("div");
+favoriteList.setAttribute("id","favoriteList");
+content.appendChild(favoriteList);
+
 // Creation of div container for search list
 const searchList = document.createElement("div");
 searchList.setAttribute("id","searchList");
 content.appendChild(searchList);
 
+// Event handler : getting favorite books when loading page
+window.onload = () => {
+let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
+for (let i = 0; i < favoriteBook.length; i++){
+    const favoriteBookCard = document.createElement("section");
+    favoriteBookCard.innerHTML =
+                `<div id = "imgBox">
+                <div id="image"> <img src="${favoriteBook[i].img}"/> </div>
+                </div>
+                <div id = "txtBox"> 
+                <h3>${favoriteBook[i].title}</h3>
+                <div id="id">Id : ${favoriteBook[i].id}</div>
+                <div id="author">Auteur-e : ${favoriteBook[i].author}</div>
+                <div id="description">${favoriteBook[i].description}</div>
+                </div>`;
+
+
+
+    favoriteList.appendChild(favoriteBookCard);
+
+}
+
+
+
+}
 
 // Event handler : CLICK on addButton => addButton is replaced by searchButton and cancelButton
 addButton.addEventListener ("click", function(){
@@ -55,6 +85,7 @@ cancelButton.addEventListener ("click", function(){
     document.getElementById("searchList").innerHTML = "";
     document.getElementsByTagName("h2")[1].innerHTML = "Ma poch'liste ";
     hr.appendChild(addButton);
+    location.reload(true);
 
 });
 
@@ -64,7 +95,7 @@ searchButton.addEventListener("click", async function() {
     let searchTitle = document.getElementById("titleInput").value; 
     let searchAuthor = document.getElementById("authorInput").value;
 
-    if ((searchTitle || searchAuthor) === "" && (searchTitle || searchAuthor) === null) {
+    if (!searchTitle || !searchAuthor) {
         alert("Merci de remplir les champs titre ET auteur-e");
     } else {   
 
@@ -75,6 +106,7 @@ searchButton.addEventListener("click", async function() {
             alert("Aucun livre n'a été trouvé");
 
         } else {
+            
             // Replace title by "Ma Recherche" and clear previous search
             document.getElementsByTagName("h2")[1].innerHTML = "Ma Recherche";
             document.getElementById("searchList").innerHTML = "";
@@ -111,43 +143,30 @@ searchButton.addEventListener("click", async function() {
 
                 // Event handler : CLICK on bookmark to add to favorite list (within search button handler)
                 bookmark.addEventListener ("click", () => {
+                    // Function : add book to favorite list 
+                    const addToFavorite = () => {
+                    favoriteBook.push(book);
+                    sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+                };
                     let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
                     if (favoriteBook == null){
                         favoriteBook = [];
-                        favoriteBook.push(book);
-                        sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+                        addToFavorite();
                     }else{
                     let bookIdCheck = favoriteBook.find(e => e.id==book.id);
-                    if (bookIdCheck){
-                        alert('ce livre existe déjà dans votre pochlist');
-                    }else{
-                        favoriteBook.push(book);
-                        sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
-                        console.log(favoriteBook);
-                    }
-                }
-                   
-                  
-                    
-                    
+                        if (bookIdCheck){
+                        alert('Ce livre existe déjà dans votre pochlist');
+                        }else{
+                        addToFavorite();
+                        }
+                    }                                                    
                 })   
                                     
                 searchList.appendChild(bookBox);
 
-                
-                
-                
-                
-  
-                
             });
-            
-            
-            
 
-
-        }
-        
+        } 
                 
     }
 })
