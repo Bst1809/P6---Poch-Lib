@@ -51,6 +51,7 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
     }else{
         for (let i = 0; i < favoriteBook.length; i++){
             const favoriteBookCard = document.createElement("section");
+            favoriteBookCard.id = "favorite" + favoriteBook[i].id;
             favoriteBookCard.innerHTML =
             `<div id = "imgBox">
             <div id="image"> <img src="${favoriteBook[i].img}"/> </div>
@@ -62,26 +63,28 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
             <div id="description">${favoriteBook[i].description}</div>
             </div>`;
 
+            favoriteList.appendChild(favoriteBookCard);
+
             // Creation of Bin button to delete from Favorite 
             const binButton = document.createElement("i");
             binButton.setAttribute("class", "fa-solid fa-trash-can fa-4x");
             binButton.setAttribute("id", "binButton");
-
             favoriteBookCard.appendChild(binButton);
-            favoriteList.appendChild(favoriteBookCard);
+
+            
+
              // Event handler : CLICK on binButton to delete from favorite list (within search button handler)
             binButton.addEventListener('click', function () {
-            let bookToDeleteId = favoriteBook[i].id;
-                const newList = favoriteBook.filter(object => {
-                return object.id !== bookToDeleteId;
-                });
-                console.log(newList);
-    
-                
+            let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
+            const bookToDelete = document.getElementById("favorite"+favoriteBook[i].id);
 
-        
-                
-            })
+            favoriteList.removeChild(bookToDelete);
+            favoriteBook = favoriteBook.filter((b) => b.id != favoriteBook[i].id);
+            sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+            location.reload(true);
+            });
+    
+            
         }
     }
 
