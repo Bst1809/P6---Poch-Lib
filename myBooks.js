@@ -52,19 +52,36 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
         for (let i = 0; i < favoriteBook.length; i++){
             const favoriteBookCard = document.createElement("section");
             favoriteBookCard.innerHTML =
-                        `<div id = "imgBox">
-                        <div id="image"> <img src="${favoriteBook[i].img}"/> </div>
-                        </div>
-                        <div id = "txtBox"> 
-                        <h3>${favoriteBook[i].title}</h3>
-                        <div id="id">Id : ${favoriteBook[i].id}</div>
-                        <div id="author">Auteur-e : ${favoriteBook[i].author}</div>
-                        <div id="description">${favoriteBook[i].description}</div>
-                        </div>`;
+            `<div id = "imgBox">
+            <div id="image"> <img src="${favoriteBook[i].img}"/> </div>
+            </div>
+            <div id = "txtBox"> 
+            <h3>${favoriteBook[i].title}</h3>
+            <div id="id">Id : ${favoriteBook[i].id}</div>
+            <div id="author">Auteur-e : ${favoriteBook[i].author}</div>
+            <div id="description">${favoriteBook[i].description}</div>
+            </div>`;
 
+            // Creation of Bin button to delete from Favorite 
+            const binButton = document.createElement("i");
+            binButton.setAttribute("class", "fa-solid fa-trash-can fa-4x");
+            binButton.setAttribute("id", "binButton");
 
-
+            favoriteBookCard.appendChild(binButton);
             favoriteList.appendChild(favoriteBookCard);
+             // Event handler : CLICK on binButton to delete from favorite list (within search button handler)
+            binButton.addEventListener('click', function () {
+            let bookToDeleteId = favoriteBook[i].id;
+                const newList = favoriteBook.filter(object => {
+                return object.id !== bookToDeleteId;
+                });
+                console.log(newList);
+    
+                
+
+        
+                
+            })
         }
     }
 
@@ -139,10 +156,10 @@ searchButton.addEventListener("click", async function() {
                 <div id="description">${book.description}</div>
                 </div>`;
 
-                // Creation of Bookmark 
+                // Creation of Bookmark button to add to Favorite 
                 const bookmark = document.createElement("i");
                 bookmark.setAttribute("class", "fa-regular fa-bookmark fa-4x");
-                bookmark.setAttribute("id", "bookmark");
+                bookmark.setAttribute("id", "bookmarkAdd");
                 bookBox.appendChild(bookmark);
 
                 // Event handler : CLICK on bookmark to add to favorite list (within search button handler)
@@ -164,7 +181,7 @@ searchButton.addEventListener("click", async function() {
                         addToFavorite();
                         }
                     }                                                    
-                })   
+                })
                                     
                 searchList.appendChild(bookBox);
 

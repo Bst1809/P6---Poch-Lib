@@ -129,8 +129,11 @@ max-width: 100%;
 .fa-regular {
    color: #FFBA08;
    float: right;
-   
-   
+}
+
+.fa-solid {
+   color: #FFBA08;
+   float: right;
 }
 
 
