@@ -8,6 +8,10 @@ body
 
 }
 
+p {
+   font-style: italic;
+}
+
 h1, h2
 {
 	font-family: 'Gentium Book Basic', Arial, serif;
@@ -16,7 +20,7 @@ h1, h2
 h2
 {
 	padding: 0.2em;
-   background-color: #020122;
+   background-color: #870058;
    color: #F4F6FB;
 }
 
@@ -86,9 +90,9 @@ button {
 }
 
 #cancelButton {
-   background: #e37f7f;
-   background: -webkit-gradient(linear, left top, left bottom, from(#ff5858), to(#e37f7f));
-   background: -webkit-linear-gradient(top, #ff5858, #e37f7f);
+   background: #870058;
+   background: -webkit-gradient(linear, left top, left bottom, from(#870058), to(#d134b7));
+   background: -webkit-linear-gradient(top, #870058, #d134b7);
    background: -moz-linear-gradient(top, #ff5858, #e37f7f);
    background: -ms-linear-gradient(top, #ff5858, #e37f7f);
    background: -o-linear-gradient(top, #ff5858, #e37f7f);
@@ -100,7 +104,7 @@ input {
 
 section {
    display: flex;
-   justify-content: flex-start;
+   justify-content: space-between;
    border: 3px dotted #FFBA08;
    background-color: #1c8c81;
    margin : 1em;
@@ -113,9 +117,11 @@ section {
    margin :0;
    margin-top: auto;
    margin-bottom: auto;
+   padding-right: 5px;
+   padding-left: 5px;
 }
 
-#image {
+#cardImg {
 max-width: 100%;
 height: auto;
 }
@@ -123,17 +129,34 @@ height: auto;
 #txtBox {
 text-align: left;
 max-width: 100%;
+overflow-wrap: break-word;
+flex : 2;
+padding-left: 5px;
+padding-right: 5px;
 
 }
+
+#txtBox2 {
+   text-align: left;
+   max-width: 100%;
+   overflow-wrap: break-word;
+   flex : 2;
+   padding-left: 5px;
+   padding-right: 5px;
+   
+   }
 
 .fa-regular {
    color: #FFBA08;
    float: right;
+   padding-top: 10px;
 }
 
 .fa-solid {
+   display: flex;
    color: #FFBA08;
    float: right;
+   padding-top: 10px;
 }
 
 
