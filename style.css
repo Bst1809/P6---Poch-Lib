@@ -19,6 +19,7 @@ h2 {
   padding: 0.2em;
   background-color: #870058;
   color: #F4F6FB;
+  margin-top: 0;
 }
 
 #myBooks {
@@ -52,8 +53,7 @@ hr {
 }
 
 button {
-  margin: auto;
-  margin-top: 18px;
+  margin: 15px;
   padding: 12px 24px;
   -webkit-border-radius: 40px;
   -moz-border-radius: 40px;
@@ -84,6 +84,15 @@ button {
   background: -o-linear-gradient(top, #870058, #d134b7);
 }
 
+#addButton, #searchButton {
+  animation: pulse 2s infinite 3s cubic-bezier(0.25, 0, 0, 1);
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 18px rgba(255, 255, 255, 0);
+  }
+}
 section {
   display: flex;
   justify-content: space-between;
