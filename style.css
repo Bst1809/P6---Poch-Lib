@@ -1,164 +1,144 @@
-@import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Basic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Gentium+Book+Basic&display=swap");
+html {
+  font-size: 62.5%;
+}
 
-body
-{
-	text-align: center;
-	margin : 0px;
-   font-family: 'Gentium Book Basic', Arial, serif;
-
+body {
+  text-align: center;
+  margin: 0px;
+  font-family: "Gentium Book Basic", Arial, serif;
+  font-size: 1.6rem;
 }
 
 p {
-   font-style: italic;
+  font-style: italic;
+  margin: 0;
 }
 
-h1, h2
-{
-	font-family: 'Gentium Book Basic', Arial, serif;
+h2 {
+  padding: 0.2em;
+  background-color: #870058;
+  color: #F4F6FB;
 }
 
-h2
-{
-	padding: 0.2em;
-   background-color: #870058;
-   color: #F4F6FB;
+#myBooks {
+  display: flex;
+  flex-direction: column;
 }
 
-#myBooks
-{
-    display: flex;
-    flex-direction: column;
+.title {
+  margin: 0px;
+  padding: 0.4em;
+  background-color: #17BEBB;
+  color: #071326;
 }
 
-.title
-{
-	margin: 0px;
-	padding: 0.4em;
-	background-color: #17BEBB;
-	color: #071326;
-}
-
-.h2
-{
-	margin: 0px;
-	background-color: #FFBA08;
-   color: #071326;
-
+.h2 {
+  margin: 0px;
+  background-color: #FFBA08;
+  color: #071326;
 }
 
 h3 {
-   margin : auto;
-   margin-top: 5px;
-   margin-bottom: 5px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-#content
-{
-   margin: 0px;
-}
-
-hr
-{
-   border : none;
-   display: flex;
-   flex-direction: column;
+hr {
+  border: none;
+  display: flex;
+  flex-direction: column;
 }
 
 button {
-   margin : auto;
-   margin-top: 18px;
-   border-top: 1px solid #26bfa3;
-   background: #2bd9b9;
-   background: -webkit-gradient(linear, left top, left bottom, from(#1c8c81), to(#2bd9b9));
-   background: -webkit-linear-gradient(top, #1c8c81, #2bd9b9);
-   background: -moz-linear-gradient(top, #1c8c81, #2bd9b9);
-   background: -ms-linear-gradient(top, #1c8c81, #2bd9b9);
-   background: -o-linear-gradient(top, #1c8c81, #2bd9b9);
-   padding: 12px 24px;
-   -webkit-border-radius: 40px;
-   -moz-border-radius: 40px;
-   border-radius: 40px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: #f2f2f2;
-   font-size: 24px;
-   font-family: 'Gentium Book Basic', Arial, serif;;
-   text-decoration: none;
-   vertical-align: middle;
+  margin: auto;
+  margin-top: 18px;
+  padding: 12px 24px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  -webkit-box-shadow: rgb(0, 0, 0) 0 1px 0;
+  -moz-box-shadow: rgb(0, 0, 0) 0 1px 0;
+  box-shadow: rgb(0, 0, 0) 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+  color: #F4F6FB;
+  font-size: 24px;
+  font-family: "Gentium Book Basic", Arial, serif;
+  text-decoration: none;
+  vertical-align: middle;
+  background: #2bd9b9;
+  background: -webkit-gradient(linear, left top, left bottom, from(#1c8c81), to(#2bd9b9));
+  background: -webkit-linear-gradient(top, #1c8c81, #2bd9b9);
+  background: -moz-linear-gradient(top, #1c8c81, #2bd9b9);
+  background: -ms-linear-gradient(top, #1c8c81, #2bd9b9);
+  background: -o-linear-gradient(top, #1c8c81, #2bd9b9);
 }
 
 #cancelButton {
-   background: #870058;
-   background: -webkit-gradient(linear, left top, left bottom, from(#870058), to(#d134b7));
-   background: -webkit-linear-gradient(top, #870058, #d134b7);
-   background: -moz-linear-gradient(top, #ff5858, #e37f7f);
-   background: -ms-linear-gradient(top, #ff5858, #e37f7f);
-   background: -o-linear-gradient(top, #ff5858, #e37f7f);
-}
-
-input {
-   margin-bottom: 0px;
+  background: #870058;
+  background: -webkit-gradient(linear, left top, left bottom, from(#870058), to(#d134b7));
+  background: -webkit-linear-gradient(top, #870058, #d134b7);
+  background: -moz-linear-gradient(top, #870058, #d134b7);
+  background: -ms-linear-gradient(top, #870058, #d134b7);
+  background: -o-linear-gradient(top, #870058, #d134b7);
 }
 
 section {
-   display: flex;
-   justify-content: space-between;
-   border: 3px dotted #FFBA08;
-   background-color: #1c8c81;
-   margin : 1em;
-   margin : auto;
-   max-width: 100%;
-
+  display: flex;
+  justify-content: space-between;
+  border: 3px dotted #FFBA08;
+  background-color: #1c8c81;
+  margin: 1em;
+  margin: auto;
+  width: 100%;
 }
 
 #imgBox {
-   margin :0;
-   margin-top: auto;
-   margin-bottom: auto;
-   padding-right: 5px;
-   padding-left: 5px;
+  margin: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 #cardImg {
-max-width: 100%;
-height: auto;
+  max-width: 100%;
 }
 
 #txtBox {
-text-align: left;
-max-width: 100%;
-overflow-wrap: break-word;
-flex : 2;
-padding-left: 5px;
-padding-right: 5px;
-
+  text-align: left;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  flex: 2;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#txtBox2 {
-   text-align: left;
-   max-width: 100%;
-   overflow-wrap: break-word;
-   flex : 2;
-   padding-left: 5px;
-   padding-right: 5px;
-   
-   }
-
 .fa-regular {
-   color: #FFBA08;
-   float: right;
-   padding-top: 10px;
+  display: flex;
+  color: #FFBA08;
+  float: right;
+  padding: 5px;
 }
 
 .fa-solid {
-   display: flex;
-   color: #FFBA08;
-   float: right;
-   padding-top: 10px;
+  display: flex;
+  color: #FFBA08;
+  float: right;
+  padding: 5px;
 }
 
+@media screen and (min-width: 768px) {
+  #favoriteList, #searchList {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  section {
+    width: 49%;
+    height: 230px;
+    margin: initial;
+  }
+}
 
-
-
+/*# sourceMappingURL=style.css.map */

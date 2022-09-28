@@ -1,0 +1,167 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Basic&display=swap');
+// Variables
+    //Colors
+    $turquoise-blue-title : #17BEBB;
+    $purple : #870058;
+    $purple-light : #d134b7;
+    $yellow : #FFBA08;
+    $blue-dark : #1c8c81;
+    $blue-light : #2bd9b9;
+    $txt-dark : #071326;
+    $txt-white : #F4F6FB;
+
+    html {
+       font-size: 62.5%;
+    }
+    
+    body {
+        text-align: center;
+        margin : 0px;
+       font-family: 'Gentium Book Basic', Arial, serif;
+       font-size: 1.6rem;
+    
+    }
+    
+    p {
+       font-style: italic;
+       margin: 0;
+    }
+    
+    h2
+    {
+        padding: 0.2em;
+       background-color: #870058;
+       color: #F4F6FB;
+    }
+    
+    #myBooks
+    {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .title
+    {
+        margin: 0px;
+        padding: 0.4em;
+        background-color: #17BEBB;
+        color: #071326;
+    }
+    
+    .h2
+    {
+        margin: 0px;
+        background-color: #FFBA08;
+       color: #071326;
+    
+    }
+    
+    h3 {
+       margin : auto;
+       margin-top: 5px;
+       margin-bottom: 5px;
+    }
+    
+    hr
+    {
+       border : none;
+       display: flex;
+       flex-direction: column;
+    }
+
+
+button {
+    margin : auto;
+    margin-top: 18px;
+    padding: 12px 24px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: $txt-white;
+    font-size: 24px;
+    font-family: 'Gentium Book Basic', Arial, serif;;
+    text-decoration: none;
+    vertical-align: middle;
+    background: $blue-light;
+        background: -webkit-gradient(linear, left top, left bottom, from($blue-dark), to($blue-light));
+        background: -webkit-linear-gradient(top, $blue-dark, $blue-light);
+        background: -moz-linear-gradient(top, $blue-dark, $blue-light);
+        background: -ms-linear-gradient(top, $blue-dark, $blue-light);
+        background: -o-linear-gradient(top, $blue-dark, $blue-light);
+}
+    
+    #cancelButton {
+        background: $purple;
+        background: -webkit-gradient(linear, left top, left bottom, from($purple), to($purple-light));
+        background: -webkit-linear-gradient(top, $purple, $purple-light);
+        background: -moz-linear-gradient(top, $purple, $purple-light);
+        background: -ms-linear-gradient(top, $purple, $purple-light);
+        background: -o-linear-gradient(top, $purple, $purple-light);  
+    }
+    section {
+        display: flex;
+        justify-content: space-between;
+        border: 3px dotted #FFBA08;
+        background-color: #1c8c81;
+        margin : 1em;
+        margin : auto;
+        width: 100%;
+     }
+     
+     #imgBox {
+        margin :0;
+        margin-top: auto;
+        margin-bottom: auto;
+        padding-right: 5px;
+        padding-left: 5px;
+     }
+     
+     #cardImg {
+     max-width: 100%;
+     
+     }
+     
+     #txtBox {
+     text-align: left;
+     max-width: 100%;
+     overflow-wrap: break-word;
+     flex : 2;
+     padding-left: 5px;
+     padding-right: 5px;
+     
+     }
+     
+     .fa-regular {
+        display: flex;
+        color: #FFBA08;
+        float: right;
+        padding : 5px;
+     }
+     
+     .fa-solid {
+        display: flex;
+        color: #FFBA08;
+        float: right;
+        padding: 5px;
+     }
+     
+@media screen and (min-width: 768px)
+{
+    #favoriteList, #searchList
+    {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    section
+    {
+        width: 49%;
+        height: 230px;
+        margin: initial;
+    }
+}
