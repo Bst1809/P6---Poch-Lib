@@ -11,29 +11,61 @@
     $txt-dark : #071326;
     $txt-white : #F4F6FB;
 
-    html {
-       font-size: 62.5%;
+// HTML & Body
+    html 
+    {
+        font-size: 62.5%;
     }
-    
-    body {
+
+    body 
+    {
         text-align: center;
         margin : 0px;
-       font-family: 'Gentium Book Basic', Arial, serif;
-       font-size: 1.6rem;
-    
+        font-family: 'Gentium Book Basic', Arial, serif;
+        font-size: 1.6rem;
     }
-    
-    p {
-       font-style: italic;
-       margin: 0;
-    }
-    
+
+//Titles
     h2
     {
         padding: 0.2em;
-       background-color: #870058;
-       color: #F4F6FB;
-       margin-top: 0;
+        background-color: $purple;
+        color: $txt-white ;
+        margin: 0;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    }
+
+    .h2
+    {
+        margin: 0px;
+        background-color: $yellow;
+        color: $txt-dark;
+    
+    }
+
+    h3 
+    {
+        margin : auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    h4 
+    {
+        margin : 0;
+    }
+
+    .title
+    {
+        margin: 0px;
+        padding: 0.4em;
+        background-color: $turquoise-blue-title;
+        color: $txt-dark;
+    }
+
+    .cardDescription {
+       font-style: italic;
+       margin: 0;
     }
     
     #myBooks
@@ -41,29 +73,7 @@
         display: flex;
         flex-direction: column;
     }
-    
-    .title
-    {
-        margin: 0px;
-        padding: 0.4em;
-        background-color: #17BEBB;
-        color: #071326;
-    }
-    
-    .h2
-    {
-        margin: 0px;
-        background-color: #FFBA08;
-       color: #071326;
-    
-    }
-    
-    h3 {
-       margin : auto;
-       margin-top: 5px;
-       margin-bottom: 5px;
-    }
-    
+ 
     hr
     {
        border : none;
@@ -71,32 +81,32 @@
        flex-direction: column;
     }
 
-
-button {
+    button 
+    {
+        margin : 15px;
+        padding: 12px 24px;
+        -webkit-border-radius: 40px;
+        -moz-border-radius: 40px;
+        border-radius: 40px;
+        -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+        -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+        box-shadow: rgba(0,0,0,1) 0 1px 0;
+        text-shadow: rgba(0,0,0,.4) 0 1px 0;
+        color: $txt-white;
+        font-size: 24px;
+        font-family: 'Gentium Book Basic', Arial, serif;;
+        text-decoration: none;
+        vertical-align: middle;
+        background: $blue-light;
+            background: -webkit-gradient(linear, left top, left bottom, from($blue-dark), to($blue-light));
+            background: -webkit-linear-gradient(top, $blue-dark, $blue-light);
+            background: -moz-linear-gradient(top, $blue-dark, $blue-light);
+            background: -ms-linear-gradient(top, $blue-dark, $blue-light);
+            background: -o-linear-gradient(top, $blue-dark, $blue-light);
+    }
     
-    margin : 15px;
-    padding: 12px 24px;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    border-radius: 40px;
-    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    box-shadow: rgba(0,0,0,1) 0 1px 0;
-    text-shadow: rgba(0,0,0,.4) 0 1px 0;
-    color: $txt-white;
-    font-size: 24px;
-    font-family: 'Gentium Book Basic', Arial, serif;;
-    text-decoration: none;
-    vertical-align: middle;
-    background: $blue-light;
-        background: -webkit-gradient(linear, left top, left bottom, from($blue-dark), to($blue-light));
-        background: -webkit-linear-gradient(top, $blue-dark, $blue-light);
-        background: -moz-linear-gradient(top, $blue-dark, $blue-light);
-        background: -ms-linear-gradient(top, $blue-dark, $blue-light);
-        background: -o-linear-gradient(top, $blue-dark, $blue-light);
-}
-    
-    #cancelButton {
+    #cancelButton 
+    {
         background: $purple;
         background: -webkit-gradient(linear, left top, left bottom, from($purple), to($purple-light));
         background: -webkit-linear-gradient(top, $purple, $purple-light);
@@ -104,39 +114,51 @@ button {
         background: -ms-linear-gradient(top, $purple, $purple-light);
         background: -o-linear-gradient(top, $purple, $purple-light);  
     }
-    #addButton, #searchButton {
+
+    #addButton, #searchButton 
+    {
         animation: pulse 2s infinite 3s cubic-bezier(0.25, 0, 0, 1);
-      }
-      @keyframes pulse {
-        to {
+    }
+    @keyframes pulse 
+    {
+        to 
+        {
           box-shadow: 0 0 0 18px rgba(255, 255, 255, 0); 
         }
-      }
+    }
 
-    section {
+    .input
+    {
+        font-size: 2rem;
+        margin-bottom: 10px;
+
+    }
+
+    section 
+    {
         display: flex;
         justify-content: space-between;
-        border: 3px dotted #FFBA08;
-        background-color: #1c8c81;
-        margin : 1em;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
         margin : auto;
         width: 100%;
-     }
+    }
      
-     #imgBox {
+    #imgBox 
+    {
         margin :0;
         margin-top: auto;
         margin-bottom: auto;
         padding-right: 5px;
         padding-left: 5px;
-     }
+    }
      
-     #cardImg {
+    #cardImg 
+    {
      max-width: 100%;
+    }
      
-     }
-     
-     #txtBox {
+    #txtBox 
+    {
      text-align: left;
      max-width: 100%;
      overflow-wrap: break-word;
@@ -144,34 +166,53 @@ button {
      padding-left: 5px;
      padding-right: 5px;
      
-     }
+    }
      
-     .fa-regular {
+    #binButton 
+    {
         display: flex;
-        color: #FFBA08;
+        color: $blue-dark;
         float: right;
         padding : 5px;
      }
      
-     .fa-solid {
+    #favoriteButton 
+    {
         display: flex;
-        color: #FFBA08;
+        color: $yellow;
         float: right;
         padding: 5px;
-     }
+    }
 
-@media screen and (min-width: 768px)
-{
-    #favoriteList, #searchList
+    #favoriteButton:after 
     {
-        display: flex;
-        flex-wrap: wrap;
+        flood-color: #FFBA08;
     }
-    
-    section
+
+    #favoriteList 
     {
-        width: 49%;
-        height: 230px;
-        margin: initial;
+        background-color: $yellow;
     }
-}
+
+    #searchList 
+    {
+        background-color: $blue-dark;
+    }
+
+// Responsive design
+    @media screen and (min-width: 768px)
+    {
+        #favoriteList, #searchList
+        {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+        
+        section
+        {
+            width: 50%;
+            height: 230px;
+            margin: initial;
+        }
+    }

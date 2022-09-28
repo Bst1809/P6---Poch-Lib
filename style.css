@@ -10,28 +10,12 @@ body {
   font-size: 1.6rem;
 }
 
-p {
-  font-style: italic;
-  margin: 0;
-}
-
 h2 {
   padding: 0.2em;
   background-color: #870058;
   color: #F4F6FB;
-  margin-top: 0;
-}
-
-#myBooks {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  margin: 0px;
-  padding: 0.4em;
-  background-color: #17BEBB;
-  color: #071326;
+  margin: 0;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .h2 {
@@ -44,6 +28,27 @@ h3 {
   margin: auto;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+h4 {
+  margin: 0;
+}
+
+.title {
+  margin: 0px;
+  padding: 0.4em;
+  background-color: #17BEBB;
+  color: #071326;
+}
+
+.cardDescription {
+  font-style: italic;
+  margin: 0;
+}
+
+#myBooks {
+  display: flex;
+  flex-direction: column;
 }
 
 hr {
@@ -93,12 +98,15 @@ button {
     box-shadow: 0 0 0 18px rgba(255, 255, 255, 0);
   }
 }
+.input {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
 section {
   display: flex;
   justify-content: space-between;
-  border: 3px dotted #FFBA08;
-  background-color: #1c8c81;
-  margin: 1em;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   margin: auto;
   width: 100%;
 }
@@ -124,27 +132,40 @@ section {
   padding-right: 5px;
 }
 
-.fa-regular {
+#binButton {
+  display: flex;
+  color: #1c8c81;
+  float: right;
+  padding: 5px;
+}
+
+#favoriteButton {
   display: flex;
   color: #FFBA08;
   float: right;
   padding: 5px;
 }
 
-.fa-solid {
-  display: flex;
-  color: #FFBA08;
-  float: right;
-  padding: 5px;
+#favoriteButton:after {
+  flood-color: #FFBA08;
+}
+
+#favoriteList {
+  background-color: #FFBA08;
+}
+
+#searchList {
+  background-color: #1c8c81;
 }
 
 @media screen and (min-width: 768px) {
   #favoriteList, #searchList {
     display: flex;
     flex-wrap: wrap;
+    max-width: 100%;
   }
   section {
-    width: 49%;
+    width: 50%;
     height: 230px;
     margin: initial;
   }

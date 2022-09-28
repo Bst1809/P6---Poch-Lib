@@ -17,21 +17,23 @@ hr.appendChild(addButton);
 const titleLabel = document.createElement("h3");
 titleLabel.innerHTML = "Titre du livre : ";
 const titleInput = document.createElement("input");
-titleInput.setAttribute("id", "titleInput");
+titleInput.id = "titleInput";
 titleInput.setAttribute("type", "search");
+titleInput.setAttribute("class", "input");
 titleInput.placeholder = "Exemple : 1984";
     // Author input
 const authorLabel = document.createElement("h3");
 authorLabel.innerHTML = "Auteur-e : ";
 const authorInput = document.createElement("input");
-authorInput.setAttribute("id","authorInput");
+authorInput.id = "authorInput";
 authorInput.setAttribute("type", "search");
+authorInput.setAttribute("class", "input");
 authorInput.placeholder = "Exemple : George Orwell";
 
 // Div for Favorite List (poch'liste) and search list 
     // Search list
 const searchListBox = document.createElement("div");
-searchListBox.id = "searchListBox"
+searchListBox.id = "searchListBox";
 const searchListTitle = document.createElement("h2");
 searchListTitle.innerHTML = "Ma Recherche";
 searchListBox.appendChild(searchListTitle);
@@ -55,36 +57,45 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
         {
             const favoriteBookCard = document.createElement("section");
             favoriteBookCard.id = "favorite" + favoriteBook[i].id;
+
             const imgBox = document.createElement("div");
             imgBox.id = "imgBox";
+
             const cardImg = document.createElement("img");
             cardImg.id = "cardImg";
             cardImg.src = favoriteBook[i].img;
+
             favoriteBookCard.appendChild(imgBox);
             imgBox.appendChild(cardImg);
+
             const txtBox = document.createElement("div");
             txtBox.id = "txtBox";
+
             const bookmark = document.createElement("i");
             bookmark.setAttribute("class", "fa-regular fa-trash-can fa-3x");
             bookmark.id = "binButton";
             txtBox.appendChild(bookmark);
+
             const cardTitle = document.createElement("h3");
             cardTitle.innerHTML = favoriteBook[i].title;
             txtBox.appendChild(cardTitle);
-            const cardId = document.createElement("div");
+
+            const cardId = document.createElement("h4");
             cardId.innerHTML = "Id : " +  favoriteBook[i].id;
             txtBox.appendChild(cardId);
-            const cardAuthor = document.createElement("p");
+
+            const cardAuthor = document.createElement("h4");
             cardAuthor.innerHTML = "Auteur : " + favoriteBook[i].author;
             txtBox.appendChild(cardAuthor);
+
             const cardDescription = document.createElement("p");
+            cardDescription.setAttribute("class", "cardDescription");
             cardDescription.innerHTML = favoriteBook[i].description;
             txtBox.appendChild(cardDescription);
+
             favoriteBookCard.appendChild(txtBox);
 
             favoriteList.appendChild(favoriteBookCard);
-
-
 
              // Event handler : WHEN click on binButton => delete book from favorite list
              bookmark.addEventListener('click', function () 
@@ -141,7 +152,6 @@ searchButton.addEventListener("click", async function() {
 
         } else 
         {
-            
             // Replace title "Ma Poch'list" with "Ma Recherche" and clear previous search
             document.getElementById("searchListBox").style.display = "initial"
             document.getElementsByTagName("h2")[1].innerHTML = "Ma Recherche";
@@ -161,46 +171,57 @@ searchButton.addEventListener("click", async function() {
                 const bookBox = document.createElement("section");
                 const imgBox = document.createElement("div");
                 imgBox.id = "imgBox";
+
                 const cardImg = document.createElement("img");
                 cardImg.id = "cardImg";
                 cardImg.src = book.img;
                 bookBox.appendChild(imgBox);
                 imgBox.appendChild(cardImg);
+
                 const txtBox = document.createElement("div");
                 txtBox.id = "txtBox";
+
                 const bookmark = document.createElement("i");
                 bookmark.setAttribute("class", "fa-regular fa-heart fa-3x");
-                bookmark.id = "bookmarkAdd";
+                bookmark.id = "favoriteButton";
                 txtBox.appendChild(bookmark);
+
                 const cardHeader = document.createElement("h3");
                 cardHeader.innerHTML = book.title;
                 txtBox.appendChild(cardHeader);
-                const cardId = document.createElement("div");
+
+                const cardId = document.createElement("h4");
                 cardId.innerHTML ="Id : " + book.id;
                 txtBox.appendChild(cardId);
-                const cardAuthor = document.createElement("p");
+
+                const cardAuthor = document.createElement("h4");
                 cardAuthor.innerHTML = "Auteur : " + book.author;
                     if (book.author > 1) {
                         book.author = book.author.slice(0, 2);
                     }
                 txtBox.appendChild(cardAuthor);
+
                 const cardDescription = document.createElement("p");
+                cardDescription.setAttribute("class", "cardDescription");
                 cardDescription.innerHTML = book.description;
                     if (cardDescription.innerHTML.length > 200) {
                         cardDescription.innerHTML = cardDescription.innerHTML.substring(0, 200) + '...';
                     }
                 txtBox.appendChild(cardDescription);
                 bookBox.appendChild(txtBox);
-                
-
-                
+                let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
+                let bookIdCheck = favoriteBook.find(e => e.id==book.id);
+                    if (bookIdCheck){
+                    bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
+                    }else{};
 
                 // Event handler : WHEN click on bookmark => add to favorite list
                 bookmark.addEventListener ("click", () => {
                     // Function : add book to favorite list 
                     const addToFavorite = () => {
                     favoriteBook.push(book);
-                    sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
+                    sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook))
+                    bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
                     };
                     let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
                     if (favoriteBook == null){
