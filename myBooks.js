@@ -1,13 +1,17 @@
 // Buttons  
+    //addButton
 const addButton = document.createElement("button");
 addButton.id = "addButton";
 addButton.innerHTML = "Ajouter un livre";
+    //searchButton
 const searchButton = document.createElement("button");
 searchButton.id = "searchButton";
 searchButton.innerHTML = "Rechercher";
+    //cancelButton
 const cancelButton = document.createElement("button");
 cancelButton.innerHTML = "Annuler";
 cancelButton.id = "cancelButton";
+
     // Append Buttons to <hr>
 const hr = document.getElementsByTagName("hr")[0];
 hr.appendChild(addButton);
@@ -55,6 +59,7 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
     {
         for (let i = 0; i < favoriteBook.length; i++)
         {
+            //Book Card
             const favoriteBookCard = document.createElement("section");
             favoriteBookCard.id = "favorite" + favoriteBook[i].id;
 
@@ -71,7 +76,7 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
             const txtBox = document.createElement("div");
             txtBox.id = "txtBox";
 
-            const bookmark = document.createElement("i");
+            const bookmark = document.createElement("i"); // Bookmark Delete from Favorite
             bookmark.setAttribute("class", "fa-regular fa-trash-can fa-3x");
             bookmark.id = "binButton";
             txtBox.appendChild(bookmark);
@@ -139,6 +144,7 @@ searchButton.addEventListener("click", async function() {
     let searchTitle = document.getElementById("titleInput").value; 
     let searchAuthor = document.getElementById("authorInput").value;
 
+    // TODO : Fill both inputs in order to display search
     if (!searchTitle || !searchAuthor) {
         alert("Merci de remplir les champs titre ET auteur-e");
     }else 
@@ -159,15 +165,15 @@ searchButton.addEventListener("click", async function() {
 
             // Loop to get each books' elements
             bookData.items.forEach(bookData => {
-                //Creation of book object
+                //Book object
                 let book = {
                     title : bookData.volumeInfo.title,
                     id : bookData.id,
                     author : bookData.volumeInfo.authors,
-                    description : bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante",
-                    img : bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg",
+                    description : bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante", // TODO : if no description => display message
+                    img : bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg", // TODO : if no image => display image "no image"
                   }
-                // Create book card
+                // Book card
                 const bookBox = document.createElement("section");
                 const imgBox = document.createElement("div");
                 imgBox.id = "imgBox";
@@ -181,7 +187,7 @@ searchButton.addEventListener("click", async function() {
                 const txtBox = document.createElement("div");
                 txtBox.id = "txtBox";
 
-                const bookmark = document.createElement("i");
+                const bookmark = document.createElement("i"); // Bookmark Add To Favorite
                 bookmark.setAttribute("class", "fa-regular fa-heart fa-3x");
                 bookmark.id = "favoriteButton";
                 txtBox.appendChild(bookmark);
@@ -196,6 +202,7 @@ searchButton.addEventListener("click", async function() {
 
                 const cardAuthor = document.createElement("h4");
                 cardAuthor.innerHTML = "Auteur : " + book.author;
+                // TODO : if more than 1 author, just display first author
                     if (book.author > 1) {
                         book.author = book.author.slice(0, 2);
                     }
@@ -204,19 +211,22 @@ searchButton.addEventListener("click", async function() {
                 const cardDescription = document.createElement("p");
                 cardDescription.setAttribute("class", "cardDescription");
                 cardDescription.innerHTML = book.description;
+                // TODO : max length description = 200 characters
                     if (cardDescription.innerHTML.length > 200) {
                         cardDescription.innerHTML = cardDescription.innerHTML.substring(0, 200) + '...';
                     }
                 txtBox.appendChild(cardDescription);
                 bookBox.appendChild(txtBox);
-
+                // Special feature : if searched book is already in favorite list => add to favorite bookmark display is solid 
                 let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                    if (favoriteBook){
+                if (!favoriteBook){
+                }else
+                {
                     let bookIdCheck = favoriteBook.find(e => e.id==book.id);
                         if (bookIdCheck){
                         bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
                         }else{};
-                    }else{}
+                }
 
                 // Event handler : WHEN click on bookmark => add to favorite list
                 bookmark.addEventListener ("click", () => {
@@ -224,16 +234,17 @@ searchButton.addEventListener("click", async function() {
                     const addToFavorite = () => {
                     favoriteBook.push(book);
                     sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook))
+                    // Special feature : add to favorite bookmark switches to solid when clicked
                     bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
                     };
                     let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                    if (favoriteBook == null){
+                    if (!favoriteBook){
                         favoriteBook = [];
                         addToFavorite();
                     }else{
                     let bookIdCheck = favoriteBook.find(e => e.id==book.id);
                         if (bookIdCheck){
-                        alert('Ce livre existe déjà dans votre pochlist');
+                        alert('Ce livre existe déjà dans votre pochlist'); // TODO : if click twice on same book => display message
                         }else{
                         addToFavorite();
                         }
