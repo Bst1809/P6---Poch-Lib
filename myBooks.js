@@ -111,7 +111,7 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
                 // Remove from array
                 favoriteBook = favoriteBook.filter((book) => book.id != favoriteBook[i].id);
                 sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
-                location.reload(true);
+                content.appendChild(favoriteList); // BUG WHEN click on same box twice without refreshing... OR just do a location reload ? 
             });
         }
     }
