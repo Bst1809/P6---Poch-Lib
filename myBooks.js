@@ -91,8 +91,8 @@ let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
             const cardDescription = document.createElement("p");
             cardDescription.setAttribute("class", "cardDescription");
             cardDescription.innerHTML = favoriteBook[i].description;
+            
             txtBox.appendChild(cardDescription);
-
             favoriteBookCard.appendChild(txtBox);
 
             favoriteList.appendChild(favoriteBookCard);
@@ -209,11 +209,14 @@ searchButton.addEventListener("click", async function() {
                     }
                 txtBox.appendChild(cardDescription);
                 bookBox.appendChild(txtBox);
+
                 let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                let bookIdCheck = favoriteBook.find(e => e.id==book.id);
-                    if (bookIdCheck){
-                    bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
-                    }else{};
+                    if (favoriteBook){
+                    let bookIdCheck = favoriteBook.find(e => e.id==book.id);
+                        if (bookIdCheck){
+                        bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
+                        }else{};
+                    }else{}
 
                 // Event handler : WHEN click on bookmark => add to favorite list
                 bookmark.addEventListener ("click", () => {
