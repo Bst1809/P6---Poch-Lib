@@ -139,7 +139,14 @@ section {
   padding: 5px;
 }
 
-#favoriteButton {
+.fa-regular {
+  display: flex;
+  color: #FFBA08;
+  float: right;
+  padding: 5px;
+}
+
+.fa-solid {
   display: flex;
   color: #FFBA08;
   float: right;

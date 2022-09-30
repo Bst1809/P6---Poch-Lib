@@ -1,3 +1,14 @@
+// Book object
+class books {
+  constructor(id,title,author,description,img) {
+    this.id = id;
+    this.title = title;
+	this.author = author;
+	this.description = description;
+	this.img = img;
+  }
+}
+
 // Buttons  
     //addButton
 const addButton = document.createElement("button");
@@ -53,67 +64,10 @@ content.appendChild(favoriteList);
 
 // Event handler : WHEN page loads => display favorite list 
 window.onload = () => {
-let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-    if (!favoriteBook){
-    }else
-    {
-        for (let i = 0; i < favoriteBook.length; i++)
-        {
-            //Book Card
-            const favoriteBookCard = document.createElement("section");
-            favoriteBookCard.id = "favorite" + favoriteBook[i].id;
-
-            const imgBox = document.createElement("div");
-            imgBox.id = "imgBox";
-
-            const cardImg = document.createElement("img");
-            cardImg.id = "cardImg";
-            cardImg.src = favoriteBook[i].img;
-
-            favoriteBookCard.appendChild(imgBox);
-            imgBox.appendChild(cardImg);
-
-            const txtBox = document.createElement("div");
-            txtBox.id = "txtBox";
-
-            const bookmark = document.createElement("i"); // Bookmark Delete from Favorite
-            bookmark.setAttribute("class", "fa-regular fa-trash-can fa-3x");
-            bookmark.id = "binButton";
-            txtBox.appendChild(bookmark);
-
-            const cardTitle = document.createElement("h3");
-            cardTitle.innerHTML = favoriteBook[i].title;
-            txtBox.appendChild(cardTitle);
-
-            const cardId = document.createElement("h4");
-            cardId.innerHTML = "Id : " +  favoriteBook[i].id;
-            txtBox.appendChild(cardId);
-
-            const cardAuthor = document.createElement("h4");
-            cardAuthor.innerHTML = "Auteur : " + favoriteBook[i].author;
-            txtBox.appendChild(cardAuthor);
-
-            const cardDescription = document.createElement("p");
-            cardDescription.setAttribute("class", "cardDescription");
-            cardDescription.innerHTML = favoriteBook[i].description;
-            
-            txtBox.appendChild(cardDescription);
-            favoriteBookCard.appendChild(txtBox);
-
-            favoriteList.appendChild(favoriteBookCard);
-
-             // Event handler : WHEN click on binButton => delete book from favorite list
-             bookmark.addEventListener('click', function () 
-            {   // Remove from display
-                let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                const bookToDelete = document.getElementById("favorite"+favoriteBook[i].id);
-                favoriteList.removeChild(bookToDelete);
-                // Remove from array
-                favoriteBook = favoriteBook.filter((book) => book.id != favoriteBook[i].id);
-                sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook));
-                content.appendChild(favoriteList); // BUG WHEN click on same box twice without refreshing... OR just do a location reload ? 
-            });
-        }
+    for (let i = 0; i < sessionStorage.length; i++){
+      let id = sessionStorage.key(i);
+	  let favoriteBook=JSON.parse(sessionStorage.getItem(id));
+	  addFavoriteList(favoriteBook);
     }
 }
 
@@ -134,8 +88,7 @@ cancelButton.addEventListener ("click", function(){
     document.getElementById("searchList").innerHTML = "";
     document.getElementsByTagName("h2")[1].innerHTML = "Ma poch'liste ";
     hr.appendChild(addButton);
-    location.reload(true);
-
+    document.getElementById("searchListBox").style.display = "none";
 });
 
 // Event handler : WHEN click on searchButton => search and display book whith Google Books API
@@ -149,7 +102,6 @@ searchButton.addEventListener("click", async function() {
         alert("Merci de remplir les champs titre ET auteur-e");
     }else 
     {   
-
         const response = await fetch("https://www.googleapis.com/books/v1/volumes?q="+searchTitle + "+inauthor:" + searchAuthor + "&key=AIzaSyC4BzkgE2fpVlMpcAJBSx_YEYclTDQLjTU");
         const bookData = await response.json();
 
@@ -165,14 +117,14 @@ searchButton.addEventListener("click", async function() {
 
             // Loop to get each books' elements
             bookData.items.forEach(bookData => {
-                //Book object
-                let book = {
-                    title : bookData.volumeInfo.title,
-                    id : bookData.id,
-                    author : bookData.volumeInfo.authors,
-                    description : bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante", // TODO : if no description => display message
-                    img : bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg", // TODO : if no image => display image "no image"
-                  }
+                //Variables
+				    let title =bookData.volumeInfo.title;
+                    let id = bookData.id;
+                    let author = bookData.volumeInfo.authors;
+                    let description = bookData?.searchInfo?.textSnippet?bookData.searchInfo.textSnippet:"Information manquante"; // TODO : if no description => display message
+                    let img= bookData?.volumeInfo?.imageLinks?.thumbnail?bookData.volumeInfo.imageLinks.thumbnail:"Images/unavailable_thumbnail.jpg"; // TODO : if no image => display image "no image"
+				
+				let book = new books(id,title,author,description,img);
                 // Book card
                 const bookBox = document.createElement("section");
                 const imgBox = document.createElement("div");
@@ -189,7 +141,7 @@ searchButton.addEventListener("click", async function() {
 
                 const bookmark = document.createElement("i"); // Bookmark Add To Favorite
                 bookmark.setAttribute("class", "fa-regular fa-heart fa-3x");
-                bookmark.id = "favoriteButton";
+                bookmark.id = "favoriteButton"+book.id; // Each favorite bookmark gets its unique ID
                 txtBox.appendChild(bookmark);
 
                 const cardHeader = document.createElement("h3");
@@ -217,46 +169,84 @@ searchButton.addEventListener("click", async function() {
                     }
                 txtBox.appendChild(cardDescription);
                 bookBox.appendChild(txtBox);
+
                 // Special feature : if searched book is already in favorite list => add to favorite bookmark display is solid 
-                let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                if (!favoriteBook){
-                }else
-                {
-                    let bookIdCheck = favoriteBook.find(e => e.id==book.id);
-                        if (bookIdCheck){
-                        bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
-                        }else{};
-                }
+	            let favoriteBook=JSON.parse(sessionStorage.getItem(book.id));
+				if(favoriteBook)bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
 
                 // Event handler : WHEN click on bookmark => add to favorite list
-                bookmark.addEventListener ("click", () => {
-                    // Function : add book to favorite list 
-                    const addToFavorite = () => {
-                    favoriteBook.push(book);
-                    sessionStorage.setItem("bookmarkedBook", JSON.stringify(favoriteBook))
-                    // Special feature : add to favorite bookmark switches to solid when clicked
-                    bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
-                    };
-                    let favoriteBook = JSON.parse(sessionStorage.getItem("bookmarkedBook"));
-                    if (!favoriteBook){
-                        favoriteBook = [];
-                        addToFavorite();
-                    }else{
-                    let bookIdCheck = favoriteBook.find(e => e.id==book.id);
-                        if (bookIdCheck){
-                        alert('Ce livre existe déjà dans votre pochlist'); // TODO : if click twice on same book => display message
-                        }else{
-                        addToFavorite();
-                        }
-                    }                                                    
+                bookmark.addEventListener ("click", () => { 
+				bookmark.setAttribute("class", "fa-solid fa-heart fa-3x");
+					if (sessionStorage.getItem(book.id)) {
+						alert("Vous ne pouvez ajouter deux fois le même livre");
+					} else {
+						addFavoriteStorage(book);
+					}                                                 
                 })                       
                 searchList.appendChild(bookBox);
             });
         }       
     }
 })
+// Function addFavoriteStorage : add favorite book to session storage
+function addFavoriteStorage(book){
+	sessionStorage.setItem(book.id,JSON.stringify(book));
+	addFavoriteList(book);
+} 
+// Function addFavoriteList : creates book card for favorite book
+function addFavoriteList(favoriteBook){
+	        const favoriteBookCard = document.createElement("section");
+            favoriteBookCard.id = "favorite" + favoriteBook.id;
 
+            const imgBox = document.createElement("div");
+            imgBox.id = "imgBox";
 
+            const cardImg = document.createElement("img");
+            cardImg.id = "cardImg";
+            cardImg.src = favoriteBook.img;
+
+            favoriteBookCard.appendChild(imgBox);
+            imgBox.appendChild(cardImg);
+
+            const txtBox = document.createElement("div");
+            txtBox.id = "txtBox";
+
+            const bookmark = document.createElement("i"); // Bookmark Delete from Favorite
+            bookmark.setAttribute("class", "fa-regular fa-trash-can fa-3x");
+            bookmark.id = "binButton";
+            txtBox.appendChild(bookmark);
+
+            const cardTitle = document.createElement("h3");
+            cardTitle.innerHTML = favoriteBook.title;
+            txtBox.appendChild(cardTitle);
+
+            const cardId = document.createElement("h4");
+            cardId.innerHTML = "Id : " +  favoriteBook.id;
+            txtBox.appendChild(cardId);
+
+            const cardAuthor = document.createElement("h4");
+            cardAuthor.innerHTML = "Auteur : " + favoriteBook.author;
+            txtBox.appendChild(cardAuthor);
+
+            const cardDescription = document.createElement("p");
+            cardDescription.setAttribute("class", "cardDescription");
+            cardDescription.innerHTML = favoriteBook.description;
+            
+            txtBox.appendChild(cardDescription);
+            favoriteBookCard.appendChild(txtBox);
+
+            favoriteList.appendChild(favoriteBookCard);
+
+            // Event handler : WHEN click on binButton => delete book from favorite list
+             bookmark.addEventListener('click', function () 
+            {  
+				favoriteList.removeChild(favoriteBookCard);
+                sessionStorage.removeItem(favoriteBook.id);
+				let bookmarkOriginal=document.getElementById("favoriteButton"+favoriteBook.id);
+				if(bookmarkOriginal)bookmarkOriginal.setAttribute("class", "fa-regular fa-heart fa-3x");
+            });
+	       favoriteList.appendChild(favoriteBookCard);
+}
 
 
 
